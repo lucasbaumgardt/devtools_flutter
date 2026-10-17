@@ -33,14 +33,16 @@ class _UrlPageState extends State<UrlPage> {
     super.dispose();
   }
 
+  Result<String, String>? _convert(String text) {
+    if (text.isEmpty) return null;
+    return _encoding
+        ? encodeUrl(text, fullUrl: _fullUrl)
+        : decodeUrl(text, plusAsSpace: _plusAsSpace);
+  }
+
   void _update() {
-    final text = _input.text;
     setState(() {
-      _result = text.isEmpty
-          ? null
-          : _encoding
-          ? encodeUrl(text, fullUrl: _fullUrl)
-          : decodeUrl(text, plusAsSpace: _plusAsSpace);
+      _result = _convert(_input.text);
       _output.text = switch (_result) {
         Ok(:final value) => value,
         _ => '',

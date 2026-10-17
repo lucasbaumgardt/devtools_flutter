@@ -33,14 +33,14 @@ class _JsonPageState extends State<JsonPage> {
   }
 
   /// Runs on every change: the result updates while you type.
+  Result<String, JsonError>? _convert(String text) {
+    if (text.trim().isEmpty) return null;
+    return _mode == _Mode.format ? formatJson(text, _indent) : minifyJson(text);
+  }
+
   void _update() {
-    final text = _input.text;
     setState(() {
-      _result = text.trim().isEmpty
-          ? null
-          : _mode == _Mode.format
-          ? formatJson(text, _indent)
-          : minifyJson(text);
+      _result = _convert(_input.text);
       _output.text = switch (_result) {
         Ok(:final value) => value,
         _ => '',

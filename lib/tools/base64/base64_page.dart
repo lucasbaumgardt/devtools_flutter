@@ -33,14 +33,16 @@ class _Base64PageState extends State<Base64Page> {
     super.dispose();
   }
 
+  Result<String, String>? _convert(String text) {
+    if (text.isEmpty) return null;
+    return _encoding
+        ? Ok(encodeBase64(text, urlSafe: _urlSafe))
+        : decodeBase64(text);
+  }
+
   void _update() {
-    final text = _input.text;
     setState(() {
-      _result = text.isEmpty
-          ? null
-          : _encoding
-          ? Ok(encodeBase64(text, urlSafe: _urlSafe))
-          : decodeBase64(text);
+      _result = _convert(_input.text);
       _output.text = switch (_result) {
         Ok(:final value) => value,
         _ => '',

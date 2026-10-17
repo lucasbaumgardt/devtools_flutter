@@ -108,7 +108,7 @@ void main() {
       expect(parsed.milliseconds, midnightUtc * 1000);
       expect(parsed.explicitZone, isTrue);
 
-      final threeHoursEarlier = (midnightUtc - 3 * 3600) * 1000;
+      const threeHoursEarlier = (midnightUtc - 3 * 3600) * 1000;
       expect(ms('2024-10-17T00:00:00+03:00', Zone.utc), threeHoursEarlier);
       expect(ms('2024-10-17T00:00:00+0300', Zone.utc), threeHoursEarlier);
     });
