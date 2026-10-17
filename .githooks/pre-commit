@@ -70,3 +70,27 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 echo -e "${GREEN}✔ Métricas de complexidade aprovadas.${NC}"
+
+# ------------------------------------------------------------------------------
+# 5. Execução de Testes Unitários Rápidos (flutter test)
+# ------------------------------------------------------------------------------
+echo -e "\n${BLUE}▶ [3/3] Executando testes unitários (flutter test)...${NC}"
+
+# Verifica se existe a pasta test/ com testes antes de rodar
+if [ -d "test" ] && [ "$(ls -A test)" ]; then
+  flutter test
+  if [ $? -ne 0 ]; then
+    echo -e "\n${RED}❌ Alguns testes unitários falharam!${NC}\n"
+    exit 1
+  fi
+  echo -e "${GREEN}✔ Todos os testes passaram com sucesso.${NC}"
+else
+  echo -e "${YELLOW}⚠ Nenhum arquivo de teste encontrado em test/. Pulando etapa de testes.${NC}"
+fi
+
+echo -e "\n${GREEN}✨ Todas as verificações passaram! Commit permitido.${NC}\n"
+exit 0
+
+
+    - name: Flutter Format Check
+      run: dart format --output=none --set-exit-if-changed .
