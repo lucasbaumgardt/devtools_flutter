@@ -34,3 +34,23 @@ jobs:
 
       - name: Flutter Test
         run: flutter test
+
+      - name: Flutter Build Web
+        run:
+          flutter build web --release
+          # --dart-define=apiKey=${{ secrets.FIREBASE_API_KEY }}
+          # --dart-define=appId=${{ secrets.FIREBASE_APP_ID }}
+          # --dart-define=messagingSenderId=${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+          # --dart-define=projectId=${{ secrets.FIREBASE_PROJECT_ID }}
+          # --dart-define=authDomain=${{ secrets.FIREBASE_AUTH_DOMAIN }}
+          # --dart-define=storageBucket=${{ secrets.FIREBASE_STORAGE_BUCKET }}
+          # --dart-define=dsn=${{ secrets.DSN }}
+
+      # Step 5: Deploy to Firebase Hosting
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          channelId: live # 'live' deploys directly to your production URL
+          projectId: validacao-f840d # Replace with your Firebase Project ID
