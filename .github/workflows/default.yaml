@@ -53,4 +53,4 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           channelId: live # 'live' deploys directly to your production URL
-          projectId: validacao-f840d # Replace with your Firebase Project ID
+          projectId: devtools-339a1 # Replace with your Firebase Project ID
